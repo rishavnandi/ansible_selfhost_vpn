@@ -1,0 +1,32 @@
+---
+
+vars:
+  username: <username> # Your username
+
+  root_host: <example>.duckdns.org
+
+  user_shell: /bin/bash
+
+  enable_passwordless_sudo: yes
+
+  enable_username_creation: yes
+
+  # Put your public key here
+  ssh_public_key: "<public_key>"
+
+  wireguard_host: "wg.{{ root_host }}"
+
+  wireguard_port: "51820"
+
+  dns_nameservers:
+    - 1.1.1.1
+    - 1.0.0.1
+
+  # Language and time settings
+  # Check here for the list of possible locales
+  # https://docs.oracle.com/cd/E23824_01/html/E26033/glset.html
+  locale: en_US.UTF-8
+
+  timezone: Asia/Kolkata
+
+  docker_dir: "/opt/docker"
