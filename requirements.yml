@@ -1,0 +1,9 @@
+---
+roles:
+ - name: chriswayg.msmtp-mailer
+
+collections:
+  - name: community.docker
+  - name: community.general
+  - name: community.crypto
+  - name: ansible.posix 
