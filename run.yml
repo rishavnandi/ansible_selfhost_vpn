@@ -1,0 +1,9 @@
+---
+- name: Setup the homeserver
+  hosts: all
+  become: yes
+  tasks:
+    - import_tasks: tasks/essential.yml
+    - import_tasks: tasks/docker.yml
+    - import_tasks: tasks/nginx.yml
+    - import_tasks: tasks/wg.yml

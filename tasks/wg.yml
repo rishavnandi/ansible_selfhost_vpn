@@ -1,0 +1,30 @@
+---
+- name: Create wg directory
+  file:
+    path: "{{ docker_dir }}/wg/"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0755
+
+- name: Create wg container
+  docker_container:
+    name: wg
+    image: weejewel/wg-easy
+    pull: yes
+    sysctls:
+      "net.ipv4.ip_forward": "1"
+      "net.ipv4.conf.all.src_valid_mark": "1"
+    capabilities:
+      - NET_ADMIN
+      - SYS_MODULE
+    state: started
+    env:
+      "PASSWORD": "{{ wg_password }}"
+      "WG_HOST": "{{ ip_address }}"
+    ports:
+      - "51820:51820/udp"
+      - "51821:51821/tcp"
+    volumes:
+      - "{{docker_dir}}/wg/:/etc/wireguard"
+    restart_policy: unless-stopped
