@@ -2,9 +2,19 @@
 
 ## Usage
 
+- Clone the repo 
+```bash
+git clone https://github.com/rishavnandi/ansible_selfhost_vpn
+```
+- Then modify the variables in the group_vars/all/vars.yml based on your needs and add your server's IP and path of the ssh key(if you are using one) in the inventory file 
+
+- Then simply run the playbook
 ```bash
 ansible-playbook run.yml -K
 ```
+- Then you can visit the nginx proxy manager at your server's IP and port 81 to configure a domain that points to nginx and WireGuard sites
+
+## References and Info
 
 This repository contains Ansible playbooks to setup a self-hosted WireGuard VPN server. It is based on [wg-easy](https://github.com/WeeJeWel/wg-easy) which provides a nice web interface to add and remove clients.
 
