@@ -1,5 +1,7 @@
 # Ansible playbooks to setup a self-hosted WireGuard VPN server
 
+![Screenshot (1)](https://user-images.githubusercontent.com/101431112/209468911-88c70c8d-c686-4dac-b4c7-bc3b1fb67568.png)
+
 ## Usage
 
 - Clone the repo 
