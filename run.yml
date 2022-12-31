@@ -1,9 +1,14 @@
 ---
 - name: Setup the homeserver
   hosts: all
-  become: yes
+  become: true
+
   tasks:
-    - import_tasks: tasks/essential.yml
-    - import_tasks: tasks/docker.yml
-    - import_tasks: tasks/nginx.yml
-    - import_tasks: tasks/wg.yml
+    - name: Perform essential tasks
+      ansible.builtin.import_tasks: tasks/essential.yml
+    - name: Install docker
+      ansible.builtin.import_tasks: tasks/docker.yml
+    - name: Install nginx
+      ansible.builtin.import_tasks: tasks/nginx.yml
+    - name: Install wireguard
+      ansible.builtin.import_tasks: tasks/wg.yml

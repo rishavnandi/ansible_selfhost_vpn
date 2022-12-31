@@ -1,63 +1,63 @@
 ---
 - name: Set amd64 architecture
-  set_fact:
+  ansible.builtin.set_fact:
     docker_arch: amd64
   when: ansible_architecture == "x86_64"
 
 - name: Set arm64 architecture
-  set_fact:
+  ansible.builtin.set_fact:
     docker_arch: arm64
   when: ansible_architecture == "aarch64" or ansible_architecture == "arm64"
 
 - name: Install docker dependencies
-  apt:
+  ansible.builtin.apt:
     name: "{{ docker_dependencies }}"
-    state: latest
+    state: present
 
 - name: Add docker gpg key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 - name: Add docker repository
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb [arch={{ docker_arch }}] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
     state: present
 
 - name: Update apt and install docker
   block:
     - name: Attempt installation
-      apt:
-        update_cache: yes
+      ansible.builtin.apt:
+        update_cache: true
         name: "{{ docker_packages }}"
-        state: latest
+        state: present
   rescue:
     - name: Fix the dumb Ubuntu Jammy error
-      replace:
+      ansible.builtin.replace:
         path: /etc/systemd/system/multi-user.target.wants/docker.service
         regexp: "fd://"
         replace: "unix://"
       when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('22.04', '>=')
 
 - name: Ensure docker group exists
-  group:
+  ansible.builtin.group:
     name: docker
     state: present
 
-- name: Add user {{ username }} to docker group
-  user:
+- name: Add user to docker group
+  ansible.builtin.user:
     name: "{{ username }}"
     groups: docker
-    append: yes
+    append: true
 
 - name: Enable docker service
-  service:
+  ansible.builtin.service:
     name: docker
-    enabled: yes
+    enabled: true
     state: started
 
 - name: Create docker directory
-  file:
+  ansible.builtin.file:
     path: "{{ docker_dir }}"
     state: directory
     owner: "{{ username }}"

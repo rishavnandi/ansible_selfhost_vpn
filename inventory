@@ -1,6 +1,6 @@
 [homeserver]
-192.168.60.4
+server_ip
 
 [homeserver:vars]
-ansible_user = vagrant
-ansible_ssh_private_key_file = ~/.vagrant.d/insecure_private_key
+ansible_user = unix_username
+ansible_ssh_private_key_file = /path/to/private/key/file

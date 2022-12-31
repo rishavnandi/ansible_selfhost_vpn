@@ -1,9 +1,9 @@
 ---
-username: vagrant
+username: unix_username
 
 docker_dir: /home/{{ username }}/docker
 
-ip_address: 192.168.60.4
+ip_address: server_ip
 
 wg_password: wg_password
 

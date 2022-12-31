@@ -1,6 +1,6 @@
 ---
 - name: Create nginx directory
-  file:
+  ansible.builtin.file:
     path: "{{ docker_dir }}/nginx-proxy-manager/"
     state: directory
     owner: "{{ username }}"
@@ -8,10 +8,10 @@
     mode: 0755
 
 - name: Create nginx proxy manager container
-  docker_container:
+  community.docker.docker_container:
     name: nginx-proxy-manager
     image: jc21/nginx-proxy-manager
-    pull: yes
+    pull: true
     state: started
     restart_policy: unless-stopped
     ports:
@@ -19,5 +19,5 @@
       - "81:81"
       - "443:443"
     volumes:
-      - "{{docker_dir}}/nginx-proxy-manager/data:/data"
-      - "{{docker_dir}}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt"
+      - "{{ docker_dir }}/nginx-proxy-manager/data:/data"
+      - "{{ docker_dir }}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt"
